@@ -186,4 +186,9 @@ class TodosController extends ControllerBase {
 		}
 		$this->index();
 	}
+
+	#[Route('{url}', priority: -1000)]
+	public function p404($url){
+		echo "<div class='ui error inverted message'><div class='header'>404</div>The page `$url` you are looking for doesn't exist!</div>";
+	}
 }
