@@ -1,0 +1,38 @@
+<div class="ui attached black inverted segment">{{ title }}</div>
+<div class="ui attached inverted segment">
+    <div class="ui inverted relaxed divided list">
+        {% for item in list %}
+        <div class="item">
+            <form style="display: none;" class="ui inverted left floated form" action="{{path('todos.edit',[loop.index0])}}" method="post">
+                <div class="ui inverted mini input">
+                    <input type="text" name="element" value="{{item}}">
+                </div>
+            </form>
+            <div class="ui inverted checkbox">
+                <input type="checkbox" name="example" id="ck{{loop.index0}}">
+                <label class="_element" for="ck{{loop.index0}}" data-index="{{loop.index0}}">{{item}}</label>
+            </div>
+            <a href="{{path('todos.delete',[loop.index0])}}">
+                <span class="ui circular mini icon inverted red button right floated">
+                    <i class="ui times icon"></i>
+                </span>
+            </a>
+            <span class="ui circular mini icon inverted button right floated _toEdit">
+                <i class="ui edit icon"></i>
+            </span>
+        </div>
+        {% endfor %}
+        <div class="item">
+            <form class="ui inline inverted form" action="{{path('todos.add')}}" method="post">
+                <div class="two fields _form" style="display: none">
+                    <textarea placeholder="Saisir vos éléments sur chaque ligne" name="elements" rows="4">{{item}}</textarea>
+                    <button class="ui green icon button"><i class="ui car icon"></i></button>
+                </div>
+                <div class="field _form">
+                    <input placeholder="Nouvel élément" name="element"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{script_foot|raw}}

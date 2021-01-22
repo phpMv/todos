@@ -1,0 +1,12 @@
+{{ menu|raw }}
+<div class="ui attached inverted red header">{{title}}</div>
+<div class="ui attached inverted segment">
+    <div class="ui bulleted list">
+        {% for item in content %}
+        <div class="item">
+            {{item}}
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
