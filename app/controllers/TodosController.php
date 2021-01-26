@@ -46,7 +46,6 @@ class TodosController extends ControllerBase {
 		if ($this->service->listExist()) {
 			return $this->displayList($this->service->getList(false));
 		}
-		$this->jquery->renderView("TodosController/index.html");
 	}
 
 	#[Get(path: "todos/new/{force}", name: 'todos.new')]
@@ -128,7 +127,7 @@ class TodosController extends ControllerBase {
 		$this->index();
 	}
 
-	#[Route('{url}', requirements: ['url'=>"(?!admin)|(?!Admin).*?"], priority: -1000)]
+	#[Route('{url}', priority: -1000)]
 	public function p404($url){
 		echo "<div class='ui error inverted message'><div class='header'>404</div>The page `$url` you are looking for doesn't exist!</div>";
 	}
