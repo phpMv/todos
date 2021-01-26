@@ -1,6 +1,7 @@
 #.gitignore file
 vendor/
 app/cache/
+app/logs/
 
 # Eclipse
 .settings/
