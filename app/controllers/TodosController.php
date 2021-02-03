@@ -208,7 +208,7 @@ class TodosController extends ControllerBase {
 		$dt->setValueFunction('name',function($value,$o) use($ku){
 			$v=basename($value);
 			$lbl= new HtmlLabel($v,$v,'tasks');
-			$lbl->setProperty('data-ajax',urlencode($ku.DS.$v));
+			$lbl->setProperty('data-ajax',rawurlencode($ku.DS.$v));
 			return $lbl->addClass('_edit basic large inverted');
 		});
 		$dt->setValueFunction('elements',function($value,$inst){
@@ -223,7 +223,7 @@ class TodosController extends ControllerBase {
 		});
 		$dt->setIdentifierFunction(function($i,$o) use($ku){
 			$v=\basename($o->getName());
-			return urlencode($ku.DS.$v);
+			return rawurlencode($ku.DS.$v);
 		});
 		$dt->addEditDeleteButtons(true,[],function($bt){$bt->addClass('inverted circular');},function($bt){$bt->addClass('inverted circular');});
 		$dt->onPreCompile(function ($dt) {
@@ -231,7 +231,7 @@ class TodosController extends ControllerBase {
 		});
 		$dt->addClass('compact');
 		$msg=new HtmlMessage('msg-empty','Vous pouvez ajouter une nouvelle liste en choisissant <a class="ui basic mini inverted button" href="'.Router::path('todos.new').'">Nouvelle liste</a> puis en sauvegardant la liste créée.');
-		$msg->addHeader('Liste vide');
+		$msg->addHeader('Aucune liste');
 		$msg->setIcon('info circle');
 		$dt->setEmptyMessage($msg);
 		$dt->setInverted(true);
@@ -243,12 +243,12 @@ class TodosController extends ControllerBase {
 
 	#[Route(path: "todos/deleteList/{id}/{force}",name: "todos.deleteList")]
 	public function deleteList($id,$force=false){
-		$id=\urldecode($id);
+		$id=\rawurldecode($id);
 		$name=\basename($id);
 		if($force===false){
 			return $this->showMessage('Suppression de liste',"Supprimer la liste d'identifiant $name ?",'warning','warning circle alternate',[
 				['url'=>['todos.myLists',[]],'caption'=>'Annuler','class'=>''],
-				['url'=>['todos.deleteList',[urlencode($id),true]],'caption'=>'Confirmer la suppression','class'=>'green']
+				['url'=>['todos.deleteList',[rawurlencode($id),true]],'caption'=>'Confirmer la suppression','class'=>'green']
 			]);
 		}
 		CacheManager::$cache->remove(SessionStorageList::CACHE_KEY.$id);
