@@ -48,8 +48,19 @@
 		{% endblock %}
 		{% block _buttons %}
 			<div class="ui divider"></div>
-		<button class="ui button inverted basic ajax _connect">Se connecter</button>
-			<a href="{{ path('todos.createAccount') }}" class="ui button inverted olive">Créer un compte</a>
+				<button class="ui button inverted basic fluid ajax _connect">Se connecter</button>
+			<div class="ui divider"></div>
+			<div class="ui icon inverted olive message">
+				<i class="question icon"></i>
+				<div class="content">
+					<div class="header">
+						Pas encore de compte ?
+					</div>
+					<p>Vous pouvez en créer un pour mémoriser et gérer vos listes.</p>
+					<a href="{{ path('todos.createAccount') }}" class="ui button inverted olive">Créer un compte</a>
+				</div>
+			</div>
+
 		{% endblock %}
 		</form>
 		</div>

@@ -1,12 +1,16 @@
 <?php
 namespace services;
 
+use Ajax\php\ubiquity\JsUtils;
 use Ubiquity\cache\CacheManager;
 use Ubiquity\controllers\Router;
 use Ubiquity\exceptions\CacheException;
 use Ubiquity\utils\http\USession;
 
-
+/**
+ * Class SessionStorageList
+ * @package services
+ */
 class SessionStorageList{
 	const CACHE_KEY = 'datas/lists/';
 	const EMPTY_LIST_ID='not saved';
@@ -17,6 +21,15 @@ class SessionStorageList{
 
 	private array $message;
 
+	private JsUtils $jquery;
+
+	/**
+	 * @param JsUtils $jquery
+	 */
+	public function setJquery(JsUtils $jquery): void {
+		$this->jquery = $jquery;
+	}
+
 	public function __construct($controller){
 		$this->jquery=$controller->jquery;
 		$this->info=['id'=>self::EMPTY_LIST_ID,'updated'=>false];
@@ -25,12 +38,12 @@ class SessionStorageList{
 
 	private function createCopyButton(string $bt,string $elmText){
 		$this->jquery->click($bt,'
-									let $temp = $("<input>");
-									$("body").append($temp);
-									$temp.val($("'.$elmText.'").text()).select();
+									let tmp = $("<input>");
+									$("body").append(tmp);
+									tmp.val($("'.$elmText.'").text()).select();
 									document.execCommand("copy");
-									$temp.remove();
-									$("'.$bt.'").popup({content: "Copié!"}).popup("show");
+									tmp.remove();
+									$("'.$bt.'").popup({content: "L\'url a été Copiée dans le presse papier!"}).popup("show");
 							');
 	}
 

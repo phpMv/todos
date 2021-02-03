@@ -52,7 +52,7 @@ class TodosController extends ControllerBase {
 	}
 
 	public function isValid($action) {
-		if($action=='newlist'){
+		if($action==='myLists' || $action==='deleteList'){
 			return $this->getAuthController()->_isValidUser($action);
 		}
 		return parent::isValid($action);
@@ -157,14 +157,8 @@ class TodosController extends ControllerBase {
 		echo "<div class='ui error inverted message'><div class='header'>404</div>The page `$url` you are looking for doesn't exist!</div>";
 	}
 
-	#[Route(path: "todos/caches",name: "todos.getCacheFiles")]
-	public function getCacheFiles(){
-		$files=CacheManager::$cache->getCacheFiles('datas/lists');
-		var_dump($files);
-	}
-
 	protected function getAuthController(): AuthController {
-		return new MyAuth($this);
+		return $this->_auth??=new MyAuth($this);
 	}
 
 	#[Get(path: "todos/createAccount",name: "todos.createAccount")]

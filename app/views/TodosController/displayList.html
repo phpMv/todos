@@ -1,6 +1,13 @@
+<h2 class="ui inverted header">
+    <i class="ol list icon"></i>
+    <div class="content">
+        Liste active
+        <div class="sub header">Gestion des items</div>
+    </div>
+</h2>
 <div class="ui attached black inverted segment">
     <div class="ui inverted secondary menu">
-        <div class="item">{{ title }}</div>
+        <div class="item"><div class="ui black inverted basic label">{{ title }}</div></div>
         <div class="right menu">
             <div class="item">
                 <div class="ui inverted toggle checkbox _multiple">
@@ -33,6 +40,16 @@
                 <i class="ui edit icon"></i>
             </span>
         </div>
+            {% else %}
+                <div class="ui icon inverted info message">
+                    <i class="sticky note outline icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Liste vide !
+                        </div>
+                        <p>Pour ajouter un élément, saisissez le dans la zone ci-dessous puis validez.</p>
+                    </div>
+                </div>
         {% endfor %}
         <div class="item">
             <form class="ui inline inverted form" action="{{path('todos.add')}}" method="post">
