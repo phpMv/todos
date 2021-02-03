@@ -136,6 +136,7 @@ class TodosController extends ControllerBase {
 
 	#[Get(path: "todos/loadList/{uniqid}", name: 'todos.loadList')]
 	public function loadList($uniqid) {
+		$uniqid=\str_replace('[DS]',DS,$uniqid);
 		if ($list=$this->service->persistentGet($uniqid)){
 			$this->showMessage('Chargement', "Liste chargée depuis <b>$uniqid</b>", 'success', 'check square outline');
 			$this->displayList($list);
@@ -223,7 +224,7 @@ class TodosController extends ControllerBase {
 		});
 		$dt->setIdentifierFunction(function($i,$o) use($ku){
 			$v=\basename($o->getName());
-			return rawurlencode($ku.DS.$v);
+			return rawurlencode($ku.'[DS]'.$v);
 		});
 		$dt->addEditDeleteButtons(true,[],function($bt){$bt->addClass('inverted circular');},function($bt){$bt->addClass('inverted circular');});
 		$dt->onPreCompile(function ($dt) {
@@ -243,11 +244,12 @@ class TodosController extends ControllerBase {
 
 	#[Route(path: "todos/deleteList/{id}/{force}",name: "todos.deleteList")]
 	public function deleteList($id,$force=false){
+		$id=\str_replace('[DS]',DS,$id);
 		$name=\basename($id);
 		if($force===false){
 			return $this->showMessage('Suppression de liste',"Supprimer la liste d'identifiant $name ?",'warning','warning circle alternate',[
 				['url'=>['todos.myLists',[]],'caption'=>'Annuler','class'=>''],
-				['url'=>['todos.deleteList',[rawurlencode($id),true]],'caption'=>'Confirmer la suppression','class'=>'green']
+				['url'=>['todos.deleteList',[rawurlencode(str_replace(DS,'[DS]',$id)),true]],'caption'=>'Confirmer la suppression','class'=>'green']
 			]);
 		}
 		CacheManager::$cache->remove(SessionStorageList::CACHE_KEY.$id);
