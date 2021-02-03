@@ -243,7 +243,6 @@ class TodosController extends ControllerBase {
 
 	#[Route(path: "todos/deleteList/{id}/{force}",name: "todos.deleteList")]
 	public function deleteList($id,$force=false){
-		$id=\rawurldecode($id);
 		$name=\basename($id);
 		if($force===false){
 			return $this->showMessage('Suppression de liste',"Supprimer la liste d'identifiant $name ?",'warning','warning circle alternate',[
