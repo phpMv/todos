@@ -27,5 +27,7 @@ body{
 	bottom: 134px;
 	width: 100%;
 	height: 120px;
-
+}
+._edit{
+	cursor: pointer;
 }

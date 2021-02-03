@@ -4,6 +4,7 @@ namespace controllers;
 
 use Ajax\semantic\components\validation\Rule;
 use Ajax\semantic\html\base\constants\TextAlignment;
+use Ajax\semantic\html\collections\HtmlMessage;
 use Ajax\semantic\html\elements\HtmlLabel;
 use Ajax\semantic\html\elements\HtmlList;
 use services\SessionStorageList;
@@ -207,8 +208,8 @@ class TodosController extends ControllerBase {
 		$dt->setValueFunction('name',function($value,$o) use($ku){
 			$v=basename($value);
 			$lbl= new HtmlLabel($v,$v,'tasks');
-			$lbl->setProperty('data-ajax',urlencode($ku.'/'.$v));
-			return $lbl->addClass('_edit basic inverted');
+			$lbl->setProperty('data-ajax',urlencode($ku.DS.$v));
+			return $lbl->addClass('_edit basic large inverted');
 		});
 		$dt->setValueFunction('elements',function($value,$inst){
 			$name=$inst->getName();
@@ -222,13 +223,17 @@ class TodosController extends ControllerBase {
 		});
 		$dt->setIdentifierFunction(function($i,$o) use($ku){
 			$v=\basename($o->getName());
-			return urlencode($ku.'\\'.$v);
+			return urlencode($ku.DS.$v);
 		});
 		$dt->addEditDeleteButtons(true,[],function($bt){$bt->addClass('inverted circular');},function($bt){$bt->addClass('inverted circular');});
 		$dt->onPreCompile(function ($dt) {
 			$dt->getHtmlComponent()->setColAlignmentFromRight(0, TextAlignment::RIGHT);
 		});
 		$dt->addClass('compact');
+		$msg=new HtmlMessage('msg-empty','Vous pouvez ajouter une nouvelle liste en choisissant <a class="ui basic mini inverted button" href="'.Router::path('todos.new').'">Nouvelle liste</a> puis en sauvegardant la liste créée.');
+		$msg->addHeader('Liste vide');
+		$msg->setIcon('info circle');
+		$dt->setEmptyMessage($msg);
 		$dt->setInverted(true);
 		$this->jquery->getOnClick('._delete',Router::path('todos.deleteList',['']),'#response',['attr'=>'data-ajax','hasLoader'=>'internal']);
 		$this->jquery->getOnClick('._edit',Router::path('todos.loadList',['']),'#response',['attr'=>'data-ajax','hasLoader'=>'internal-x']);
