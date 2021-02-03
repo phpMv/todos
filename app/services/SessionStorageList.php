@@ -70,8 +70,12 @@ class SessionStorageList{
 		}
 	}
 
-	private function getUniqid(){
-		return ($this->info['id']===self::EMPTY_LIST_ID)?uniqid('',true):$this->info['id'];
+	private function getUniqid($user){
+		$pathExt='';
+		if($user!=null){
+			$pathExt=\md5($user).'/';
+		}
+		return ($this->info['id']===self::EMPTY_LIST_ID)?$pathExt.uniqid('',true):$this->info['id'];
 	}
 
 	private function getInfo():array{
@@ -92,12 +96,13 @@ class SessionStorageList{
 		return CacheManager::$cache->exists(self::CACHE_KEY . $id);
 	}
 
-	public function persistentSave():string{
+	public function persistentSave($user):string{
+
 		$this->getInfo();
-		$id = $this->getUniqid();
+		$id = $this->getUniqid($user);
 		$this->setInfo($id);
 		try {
-			CacheManager::$cache->store(self::CACHE_KEY . $id, $this->getList());
+			CacheManager::$cache->store(self::CACHE_KEY .$id, $this->getList());
 			$this->message['success']="La liste a été sauvegardée sous l'id <b>$id</b>.<br>Elle sera accessible depuis l'url " . $this->getButtonUrl(Router::url('todos.loadList', [$id]));
 		}catch(CacheException $e){
 			$this->message['error']=$e->getMessage();

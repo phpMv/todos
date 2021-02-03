@@ -4,18 +4,13 @@
     <a href="{{path('todos.save')}}" class="item _saveList" style="display: none">Sauvegarder la liste</a>
     <div class="right menu">
         <div class="item">
-            <div class="ui inverted toggle checkbox _multiple">
-                <input type="checkbox" id="multiple">
-                <label for="multiple">Saisie multiple</label>
-            </div>
-        </div>
-        <div class="item">
             <form action="{{path('todos.loadListPost')}}" method="post">
-                <div class="ui action inverted input">
+                <div class="ui mini action inverted input">
                     <input type="text" placeholder="List id..." name="id">
-                    <button class="ui inverted button">Ouvrir</button>
+                    <button class="ui mini inverted button">Ouvrir</button>
                 </div>
             </form>
         </div>
+        <div class="item">{{ _userInfo | raw }}</div>
     </div>
 </div>

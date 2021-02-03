@@ -1,7 +1,9 @@
 <?php
 return array(
 	"devtools-path"=>"Ubiquity",
-	"info"=>[],
+	"info"=>[
+			"routes"
+			],
 	"display-cache-types"=>[
 			"controllers",
 			"models"
@@ -50,7 +52,8 @@ return array(
 			],
 	"part2"=>[
 			"composer",
-			"git"
+			"git",
+			"rest"
 			],
 	"style"=>"inverted"
 	);

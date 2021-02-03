@@ -1,0 +1,61 @@
+{% block _before %}
+<div class="ui inverted segment">
+{% endblock %}
+{% block _form %}
+	<div class="ui grid">
+		<div class="four wide column">
+			<h1 class="ui center aligned icon header inverted disabled">
+				<i class="huge circular sticky tasks icon"></i>
+				Todo lists
+			</h1>
+		</div>
+		<div class="twelve wide column">
+		<form id="frm-login" class="ui inverted form" name="frm-login" method="post" action="{{action}}">
+		{% block _header %}
+		<h4 class="ui inverted header dividing">Connexion à Todo lists</h4>
+		{% endblock %}
+		{% block _fields %}
+			{% block _fieldLogin %}
+			<div class="field required">
+			<label for="{{loginInputName}}">Email</label>
+			<div class="ui input">
+				{% block _login %}
+				<input id="{{loginInputName}}" name="{{loginInputName}}" type="text" placeholder="{{loginLabel}}">
+				{% endblock %}
+			</div>
+			</div>
+			{% endblock %}
+			{% block _fieldPassword %}
+			<div class="field required">
+				<label for="{{passwordInputName}}">Mot de passe</label>
+				<div class="ui input">
+					{% block _password %}
+					<input id="{{passwordInputName}}" name="{{passwordInputName}}" type="password">
+					{% endblock %}
+				</div>
+			</div>
+			{% endblock %}
+		{% block _extraFields %}
+			{% block _fieldRemember %}
+				<div class="field">
+					<div class="ui checkbox">
+						<input id="ck-remember" name="ck-remember" value="1" type="checkbox" placeholder="Remember" tabindex="0" class="hidden">
+						<label for="ck-remember">Se souvenir de moi</label>
+					</div>
+				</div>
+			{% endblock %}
+		{% endblock %}
+		{% endblock %}
+		{% block _buttons %}
+			<div class="ui divider"></div>
+		<button class="ui button inverted basic ajax _connect">Se connecter</button>
+			<a href="{{ path('todos.createAccount') }}" class="ui button inverted olive">Créer un compte</a>
+		{% endblock %}
+		</form>
+		</div>
+
+	</div>
+{% endblock %}
+{% block _after %}
+</div>
+{% endblock %}
