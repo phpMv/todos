@@ -21,6 +21,22 @@ class MyAuth extends \Ubiquity\controllers\auth\AuthController{
 		}
 	}
 
+	protected function finalizeAuth() {
+		if (! URequest::isAjax()) {
+			$this->loadView('@activeTheme/main/vFooter.html');
+		}
+	}
+
+	public function index() {
+		parent::index();
+		$frm=$this->jquery->semantic()->htmlForm('frm-login');
+		$frm->setValidationParams(['on'=>'blur','inline'=>true]);
+		$frm->addExtraFieldRules('email',[['type'=>'email','message'=>'Merci de saisir une adresse mail valide']]);
+		$frm->addExtraFieldRules('password',[['type'=>'empty','message'=>'Le mot de passe est obligatoire']]);
+
+		echo $this->jquery->compile($this->view);
+	}
+
 	public function _displayInfoAsString() {
 		return true;
 	}
