@@ -1,13 +1,12 @@
 # todos
 
-This README outlines the details of collaborating on this Ubiquity application.
-A short introduction of this app could easily go here.
+This is a small demo application for managing to-do lists..
 
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
 
-* php ^7.1
+* php ^8.0
 * [Git](https://git-scm.com/)
 * [Composer](https://getcomposer.org)
 * [Ubiquity devtools](https://ubiquity.kobject.net/)
