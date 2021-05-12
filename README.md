@@ -1,6 +1,8 @@
 # todos
 
-This is a small demo application for managing to-do lists..
+This is a small demo application for managing to-do lists.
+
+see [Todos online demo](https://test-1.sts-sio-caen.info)
 
 ## Prerequisites
 
